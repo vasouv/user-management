@@ -1,83 +1,56 @@
 package vs.usermanagement.entities;
 
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
-@Table(name = "users", schema = "public", catalog = "user_management")
+@Getter
+@ToString
+@NoArgsConstructor
+@Table(name = "users")
 public class User {
-    private int id;
-    private String email;
-    private String password;
-    private String name;
-    private LocalDateTime dateCreated;
 
     @Id
     @Column(name = "id")
-    public int getId() {
-        return id;
-    }
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Basic
-    @Column(name = "email")
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Basic
-    @Column(name = "password")
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Basic
+    @Setter
+    @NotNull
     @Column(name = "name")
-    public String getName() {
-        return name;
-    }
+    @Size(min = 4, max = 45, message = "Name between 4 and 45 chars")
+    private String name;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @Email
+    @Setter
+    @NotNull
+    @Column(name = "email")
+    @Size(min = 4, max = 45, message = "Email between 4 and 45 chars")
+    private String email;
 
-    @Basic
+    @Setter
+    @NotNull
+    @Column(name = "password")
+    @Size(min = 3, max = 100, message = "Password between 4 and 100 chars")
+    private String password;
+
+    @Setter
+    @NotNull
     @Column(name = "date_created")
-    public LocalDateTime getDateCreated() {
-        return dateCreated;
-    }
+    private LocalDateTime dateCreated;
 
-    public void setDateCreated(LocalDateTime dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(dateCreated, user.dateCreated);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, email, password, name, dateCreated);
-    }
 }

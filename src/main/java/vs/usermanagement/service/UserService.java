@@ -5,6 +5,7 @@ import vs.usermanagement.entities.User;
 import vs.usermanagement.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -17,6 +18,10 @@ public class UserService {
 
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    public Optional<User> findById(int id) {
+        return userRepository.findById(id);
     }
 
 }

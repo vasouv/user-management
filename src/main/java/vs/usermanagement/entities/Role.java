@@ -18,7 +18,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor
-@Table(name = "roles", schema = "public", catalog = "user_management")
+@Table(name = "roles")
 public class Role {
 
     @Id

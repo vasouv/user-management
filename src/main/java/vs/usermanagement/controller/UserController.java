@@ -1,5 +1,7 @@
 package vs.usermanagement.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,20 +22,18 @@ public class UserController {
     }
 
     @GetMapping("user")
-    public List<User> getAll() {
-        return userService.findAll();
+    public ResponseEntity getAll() {
+        return ResponseEntity.ok(userService.findAll());
     }
 
     @GetMapping("user/{id}")
-    public User findUser(@PathVariable int id) {
-        try {
-            return userService.findById(id).orElseThrow(() -> new UserNotFoundException("user not found"));
-        } catch (UserNotFoundException e) {
-            // TODO Auto-generated catch block
-            User notFound = new User();
-            notFound.setName("not found");
-            return notFound;
+    public ResponseEntity findUser(@PathVariable int id) {
+        var found = userService.findById(id);
+        if (found.isPresent()) {
+            return ResponseEntity.ok(found.get());
         }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
     }
 
 }

@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - UserManagementApplication",
+            "request": "launch",
+            "mainClass": "vs.usermanagement.UserManagementApplication",
+            "projectName": "user-management"
+        }
+    ]
+}

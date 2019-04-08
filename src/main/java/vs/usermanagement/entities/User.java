@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,6 +48,12 @@ public class User {
     @Column(name = "password")
     @Size(min = 3, max = 100, message = "Password between 4 and 100 chars")
     private String password;
+
+    @Setter
+    @NotNull
+    @Enumerated
+    @Column(name = "gender")
+    private Gender gender;
 
     @Setter
     @NotNull
